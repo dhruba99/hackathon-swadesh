@@ -12,6 +12,14 @@ This project is a full-stack TypeScript application that focuses on reliability 
 
 Built a fault-tolerant audio ingestion demo with Next.js, Hono, PostgreSQL, Docker, and AWS S3, using Web Workers, OPFS persistence, checksum validation, and idempotent chunk processing to handle unreliable networks and duplicate upload requests.
 
+## GitHub About Section
+
+Fault-tolerant audio upload demo with Next.js, Hono, Postgres, Docker, OPFS, and S3.
+
+## Pinned Project Text
+
+Built to demonstrate resilient upload architecture under real-world network conditions. The app records audio in 5-second chunks, persists work locally in OPFS, retries uploads through a Web Worker, and uses an idempotent Hono plus PostgreSQL backend before storing verified objects in S3-compatible storage.
+
 ## What Makes It Strong for Review
 
 - Shows end-to-end product thinking, not just UI work

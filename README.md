@@ -4,6 +4,10 @@ A portfolio-ready full-stack demo that records audio in the browser, stores chun
 
 This project is designed to show practical engineering decisions rather than just a happy-path upload form. It demonstrates how to build a recording workflow that can tolerate flaky networks, browser refreshes, duplicate requests, and interrupted uploads without losing track of chunk state.
 
+## Portfolio Positioning
+
+This is a strong portfolio project for backend-heavy frontend roles, full-stack positions, and systems-minded product engineering roles because it combines browser APIs, asynchronous background work, storage durability, backend correctness, and operational setup in one cohesive demo.
+
 ## Recruiter Summary
 
 This project demonstrates:
@@ -13,6 +17,31 @@ This project demonstrates:
 - Idempotent backend design for duplicate-safe chunk ingestion
 - Integrity checks using SHA-256 checksums and object metadata verification
 - Practical local development workflow with Docker-backed PostgreSQL
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[Browser UI] --> B[MediaRecorder]
+    B --> C[SHA-256 Checksum]
+    C --> D[OPFS Local Persistence]
+    D --> E[Web Worker Upload Queue]
+    E --> F[Hono API]
+    F --> G[(PostgreSQL)]
+    F --> H[S3-Compatible Object Storage]
+    H --> F
+    G --> F
+```
+
+## Screenshots
+
+The current repo includes the live UI and architecture documentation. If you want polished repository screenshots for the README, the fastest next step is to capture:
+
+- The main recording screen
+- The worker log showing chunk persistence and uploads
+- A short architecture or flow visual
+
+I did not generate a fake product screenshot here because recruiter-facing repos are stronger when images match the real running app.
 
 If you are reviewing this as a hiring signal, the emphasis is on reliability, state recovery, and system design under imperfect network conditions.
 
@@ -71,6 +100,7 @@ Required environment variables:
 
 - `NEXT_PUBLIC_UPLOAD_ENDPOINT`
 - `PORT`
+- `CORS_ORIGINS`
 - `DATABASE_URL`
 - `S3_ENDPOINT`
 - `S3_REGION`
@@ -159,6 +189,8 @@ This repository is optimized for local development and demonstration. For produc
 - Use S3 or S3-compatible object storage
 - Store secrets in the platform secret manager rather than env files in source control
 
+For a more detailed deployment checklist, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
 ## Publishing to GitHub
 
 Before pushing this project publicly:
@@ -174,4 +206,8 @@ A lot of demo apps work only when the network is perfect. This one is intentiona
 
 ## License
 
-Add a license here before publishing if you want recruiters and reviewers to know how the code may be used.
+This project is released under the MIT License. See [LICENSE](./LICENSE).
+
+## Contributing
+
+Contribution guidance is available in [CONTRIBUTING.md](./CONTRIBUTING.md).

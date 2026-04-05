@@ -8,16 +8,29 @@ import { uploadRoute } from "./routes/upload";
 loadEnv({ path: ".env.local", override: true });
 loadEnv();
 
+function resolveCorsOrigins(): string[] {
+  const configuredOrigins = process.env.CORS_ORIGINS;
+
+  if (!configuredOrigins) {
+    return [
+      "http://localhost:3000",
+      "http://localhost:3010",
+      "http://localhost:3012",
+    ];
+  }
+
+  return configuredOrigins
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter((origin) => origin.length > 0);
+}
+
 const app = new Hono();
 
 app.use(
   "/api/*",
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3010",
-      "http://localhost:3012",
-    ],
+    origin: resolveCorsOrigins(),
     allowMethods: ["POST", "OPTIONS"],
   }),
 );
